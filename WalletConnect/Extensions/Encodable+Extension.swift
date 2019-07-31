@@ -11,7 +11,7 @@ import Foundation
 extension Encodable {
     public var encoded: Data {
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.sortedKeys]
+        encoder.outputFormatting = [.prettyPrinted]
         return try! encoder.encode(self)
     }
     public var encodedString: String {

@@ -20,6 +20,10 @@ public enum WCEvent: String {
 
     case bnbSign = "bnb_sign"
     case bnbTransactionConfirm = "bnb_tx_confirmation"
+    
+    // Dapplet
+    case dappletCheck = "wallet_checkDappletCompatibility"
+    case dappletLoad = "wallet_loadDapplet"
 }
 
 extension WCEvent {

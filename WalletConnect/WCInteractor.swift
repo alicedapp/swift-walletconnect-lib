@@ -16,6 +16,9 @@ public typealias EthSignClosure = (_ id: Int64, _ params: [String]) -> Void
 public typealias EthSendTransactionClosure = (_ id: Int64, _ transaction: WCEthereumSendTransaction) -> Void
 public typealias BnbSignClosure = (_ id: Int64, _ order: WCBinanceOrder) -> Void
 
+// Daplet
+//public typealias DappLetClosure = (_ id: Int64) -> Void
+
 func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     #if DEBUG
     items.forEach {
@@ -39,6 +42,10 @@ public class WCInteractor {
     public var onEthSign: EthSignClosure?
     public var onEthSendTransaction: EthSendTransactionClosure?
     public var onBnbSign: BnbSignClosure?
+    
+//    // Daplet
+    public var onDappletCheck: EthSignClosure?
+    public var onDappletLoad: EthSignClosure?
 
     // outgoing promise resolvers
     var connectResolver: Resolver<Bool>?
@@ -208,6 +215,12 @@ extension WCInteractor {
                 if param.approved == false {
                     disconnect()
                 }
+            case .dappletCheck:
+                let request: JSONRPCRequest<[String]> = try event.decode(decrypted)
+                onDappletCheck?(request.id, [""])
+            case .dappletLoad:
+//                let request: JSONRPCRequest<String> = try event.decode(decrypted)
+                onDappletLoad?(123, [String(data: decrypted, encoding: .utf8)!])
             default:
                 break
             }
